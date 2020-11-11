@@ -1,5 +1,8 @@
 Tufte Chpater 4 Notes:
 
+https://forms.gle/VRLQVduPEAXfKbKR6
+
+
 Grpahics should represent the substance and sense of the data and not draw attention away from the the data and towards the design. You don't want your aesthetics to compete with the data-information you're trying to present.
 The fundamental priniciple in good statistical graphics: #1 "Above all else show the data"
 
