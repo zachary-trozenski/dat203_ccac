@@ -4,7 +4,7 @@ print(getwd())
 # change the directory so we can use the csv
 setwd("/Users/zack/dat203_ccac/visualize_yourself/factor_tracker/")
 
-sleep_data <- read.csv("factor_tracker_v1.csv")
+sleep_data <- read.csv("factor_tracker_v2.csv")
 head(sleep_data)
 
 install.packages("lubridate")
@@ -32,8 +32,8 @@ sleep_data$total.screen.time <- rowSums(sleep_data[,2:4], na.rm = TRUE)
 sleep_data$total.print.time <- rowSums(sleep_data[,5:7], na.rm = TRUE)
 
 # experimenting with shapes
-ggplot(sleep_data, aes(x = Wakes.before.alarm, fill="#CC99FF", na.rm = TRUE)) +
-  geom_bar(width=1) + coord_polar(theta = 'x') +
+ggplot(sleep_data, aes(x = Meal.times, fill="#CC99FF")) +
+  geom_bar(width=1, na.rm = TRUE) + coord_polar(theta = 'x') +
   theme(legend.position="none")
   #scale_fill_brewer(palette = "Accent") 
 
