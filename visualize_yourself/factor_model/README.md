@@ -31,10 +31,10 @@ The major categories are intended to organize individual factors. The factors I'
         * Binary measurement, suffering from ailment or healthy
 * Food/Drink
     * Caffeince Intake
-        * Amount of cups consumed per day
+        * Amount of cups consumed per day **Update** : Standard unit is 6 oz.
     * Alcohol
         * Binary, consumed or not
-    * Meal times (late vs earlier)
+    * Meal times ~(late vs earlier)~ **Update** : Giving exact time
         * Time value of when dinner was eaten
 * ~Recurring Responsibilities~ **Update** : Elected to remove these as they were untenable to track and unreliable estimations
     * ~Child care~
