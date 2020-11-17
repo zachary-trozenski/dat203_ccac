@@ -34,7 +34,9 @@ sleep_data$total.print.time <- rowSums(sleep_data[,5:7], na.rm = TRUE)
 # experimenting with shapes
 ggplot(sleep_data, aes(x = Meal.times, fill="#CC99FF")) +
   geom_bar(width=1, na.rm = TRUE) + coord_polar(theta = 'x') +
-  theme(legend.position="none")
+  theme(legend.position="none") +
+  theme(panel.background = element_rect(fill = "#FFFFFF")) +
+  theme(panel.grid.major.y = element_line(color="grey"))
   #scale_fill_brewer(palette = "Accent") 
 
 tail(sleep_data)
