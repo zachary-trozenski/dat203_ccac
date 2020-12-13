@@ -26,19 +26,37 @@ ggplot() +
   theme(panel.grid.major.y = element_line(color="grey")) +
   scale_y_continuous(limits = c(0,5))
 
+print(summary(sleep_data$Sleep.quality.scale))
+print(sd(sleep_data$Sleep.quality.scale))
+
 # creating a new series of total screen time
 sleep_data$total.screen.time <- rowSums(sleep_data[,2:4], na.rm = TRUE)
 
 # creating a new series of total print time
 sleep_data$total.print.time <- rowSums(sleep_data[,5:7], na.rm = TRUE)
 
+print(summary(sleep_data$total.screen.time))
+print(sd(sleep_data$total.screen.time))
+
+print(summary(sleep_data$total.print.time))
+print(sd(sleep_data$total.print.time))
+
+print(cor(sleep_data$total.print.time, sleep_data$Sleep.quality.scale))
+print(cor(sleep_data$total.screen.time, sleep_data$Sleep.quality.scale))
+
 # experimenting with shapes
 ggplot(sleep_data, aes(x = Meal.times, fill="#CC99FF")) +
   geom_bar(width=1, na.rm = TRUE) + coord_polar(theta = 'x') +
+  #geom_bar(mapping = aes(x = sleep_data$Sleep.quality.scale, fill = "blue")) +
   theme(legend.position="none") +
   labs(x = "Meal times", y = "Frequency", title = "Frequency of Observed Meal Time") +
   theme(panel.background = element_rect(fill = "#FFFFFF")) +
   theme(panel.grid.major.y = element_line(color="grey"))
+
+# experimenting with meal times:
+time_quality <- sleep_data[sleep_data$Meal.times > "19:30" , ]
+print(summary(time_quality$Sleep.quality.scale))
+print(sd(time_quality$Sleep.quality.scale))
 
 #tail(sleep_data)
 
@@ -55,6 +73,16 @@ ggplot() +
   labs(title = "Distribution of total screen time by sleep quality scale") +
   theme(panel.background = element_rect(fill = "white")) + #xlim(0, 300) + 
   scale_x_continuous(breaks = c(0, 60, 120, 180, 240, 300))
+
+
+ggplot(data = sleep_data, mapping = aes(x = Date)) +
+  geom_line(aes(y = Sleep.quality.scale, color = "Sleep.Quality")) +
+  geom_line(aes(y = Caffeine.Intake, color = "Caffeine")) +
+  theme(panel.background = element_rect(fill = "white")) +
+  scale_colour_manual("", values = c("Sleep.Quality"="#56B4E9", "Caffeine"="#CC79A7")) +
+  theme(panel.grid.major.y = element_line(color="grey")) +
+  labs(x = "Observation Period", y = "Sleep Scale Value/No. of Caffeinated Drinks") +
+  scale_y_continuous(limits = c(0,5))
 
 ggplot(data = sleep_data, mapping = aes(x = Date)) + 
   geom_line(aes(y = Anxiety.Stress, colour = "Anxiety.Stress")) +
