@@ -4,11 +4,12 @@ print(getwd())
 # change the directory so we can use the csv
 setwd("/Users/zack/dat203_ccac/visualize_yourself/factor_tracker/")
 
-sleep_data <- read.csv("factor_tracker_v2.csv")
+sleep_data <- na.omit(read.csv("factor_tracker_v3.csv"))
 head(sleep_data)
 
-install.packages("lubridate")
-install.packages("ggpubr")
+
+#install.packages("lubridate")
+#install.packages("ggpubr")
 
 library(ggplot2)
 library(ggpubr)
@@ -17,13 +18,13 @@ library(lubridate)
 sleep_data$Date <-  as.Date(parse_date_time(sleep_data$Date, 'ymd'))
 typeof(sleep_data$Date)
 
-?parse_date_time
 ggplot() + 
-  geom_line(sleep_data, mapping = aes(x = Date, y = Sleep.quality.scale, group = 1)) + 
+  geom_line(sleep_data, mapping = aes(x = Date, y = Sleep.quality.scale, group = 1), color = "#FF9966") + 
   scale_x_date(date_minor_breaks="1 day") + 
-  labs(x = '', y = "Sleep Quality Scale", title="Sleep Quality Over Time") + 
-  theme(panel.background = element_rect(fill = "white")) + #, colour = "black")) +
-  theme(panel.grid.major.y = element_line(color="grey"))
+  labs(x = 'Observation Period', y = "Sleep Quality Scale", title="Sleep Quality Over Time") + 
+  theme(panel.background = element_rect(fill = "white")) +
+  theme(panel.grid.major.y = element_line(color="grey")) +
+  scale_y_continuous(limits = c(0,5))
 
 # creating a new series of total screen time
 sleep_data$total.screen.time <- rowSums(sleep_data[,2:4], na.rm = TRUE)
@@ -35,11 +36,11 @@ sleep_data$total.print.time <- rowSums(sleep_data[,5:7], na.rm = TRUE)
 ggplot(sleep_data, aes(x = Meal.times, fill="#CC99FF")) +
   geom_bar(width=1, na.rm = TRUE) + coord_polar(theta = 'x') +
   theme(legend.position="none") +
+  labs(x = "Meal times", y = "Frequency", title = "Frequency of Observed Meal Time") +
   theme(panel.background = element_rect(fill = "#FFFFFF")) +
   theme(panel.grid.major.y = element_line(color="grey"))
-  #scale_fill_brewer(palette = "Accent") 
 
-tail(sleep_data)
+#tail(sleep_data)
 
 ggplot() + 
   geom_boxplot(sleep_data, mapping = aes(x = total.print.time, y = as.character(Sleep.quality.scale)), color="#3399FF", show.legend = FALSE) +
@@ -54,3 +55,22 @@ ggplot() +
   labs(title = "Distribution of total screen time by sleep quality scale") +
   theme(panel.background = element_rect(fill = "white")) + #xlim(0, 300) + 
   scale_x_continuous(breaks = c(0, 60, 120, 180, 240, 300))
+
+ggplot(data = sleep_data, mapping = aes(x = Date)) + 
+  geom_line(aes(y = Anxiety.Stress, colour = "Anxiety.Stress")) +
+  geom_line(aes(y = Emotional.fatigue, colour = "Emotional.fatigue")) +
+  scale_colour_manual("", 
+                      values = c("Anxiety.Stress"="#009E73", "Emotional.fatigue"="#D55E00")) +
+  scale_x_date(date_minor_breaks="1 day") + 
+  scale_y_continuous(limits = c(0,5)) +
+  labs(x = '', y = "Mental Health Quality Scale", title="Mental Health Quality Over Time") + 
+  theme(panel.background = element_rect(fill = "white")) +
+  theme(panel.grid.major.y = element_line(color="grey"))
+
+ggplot(data = sleep_data) + geom_density(aes(x=Sleep.quality.scale), fill="#33CCCC") +
+  facet_wrap(~Alcohol, nrow = 1) +
+  scale_x_continuous(c(0,1,2,3,4,5)) +
+  #scale_y_continuous(c(0,1)) +
+  labs(x = "", y = "Density (Percentage)") +
+  labs(title = "Sleep Quality Density by Alcohol Consumption") +
+  theme(panel.background = element_rect(fill = "white")) + theme_minimal()
