@@ -76,22 +76,39 @@ ggplot() +
 
 
 ggplot(data = sleep_data, mapping = aes(x = Date)) +
-  geom_line(aes(y = Sleep.quality.scale, color = "Sleep.Quality")) +
-  geom_line(aes(y = Caffeine.Intake, color = "Caffeine")) +
+  geom_smooth(aes(y = Sleep.quality.scale, color = "Sleep.Quality")) +
+  geom_smooth(aes(y = Caffeine.Intake, color = "Caffeine")) +
   theme(panel.background = element_rect(fill = "white")) +
-  scale_colour_manual("", values = c("Sleep.Quality"="#56B4E9", "Caffeine"="#CC79A7")) +
+  scale_colour_manual("", values = c("Sleep.Quality"="#56B4E9", "Caffeine"="#E69F00")) +
   theme(panel.grid.major.y = element_line(color="grey")) +
   labs(x = "Observation Period", y = "Sleep Scale Value/No. of Caffeinated Drinks") +
   scale_y_continuous(limits = c(0,5))
 
+print(cor(sleep_data$Caffeine.Intake, sleep_data$Sleep.quality.scale))
+print(summary(sleep_data$Caffeine.Intake))
+
 ggplot(data = sleep_data, mapping = aes(x = Date)) + 
-  geom_line(aes(y = Anxiety.Stress, colour = "Anxiety.Stress")) +
-  geom_line(aes(y = Emotional.fatigue, colour = "Emotional.fatigue")) +
+  geom_smooth(aes(y = Anxiety.Stress, colour = "Anxiety.Stress")) +
+  geom_smooth(aes(y = Emotional.fatigue, colour = "Emotional.fatigue")) +
   scale_colour_manual("", 
                       values = c("Anxiety.Stress"="#009E73", "Emotional.fatigue"="#D55E00")) +
   scale_x_date(date_minor_breaks="1 day") + 
   scale_y_continuous(limits = c(0,5)) +
   labs(x = '', y = "Mental Health Quality Scale", title="Mental Health Quality Over Time") + 
+  theme(panel.background = element_rect(fill = "white")) +
+  theme(panel.grid.major.y = element_line(color="grey"))
+
+ggplot(data = sleep_data, mapping = aes(x = Date)) + 
+  geom_smooth(aes(y = Anxiety.Stress, colour = "Anxiety.Stress")) +
+  geom_smooth(aes(y = Emotional.fatigue, colour = "Emotional.fatigue")) +
+  geom_smooth(aes(y = Sleep.quality.scale, colour = "Sleep")) +
+  scale_colour_manual("", 
+                      values = c("Anxiety.Stress"="#009E73", 
+                                 "Emotional.fatigue"="#D55E00",
+                                 "Sleep"="#56B4E9")) +
+  scale_x_date(date_minor_breaks="1 day") + 
+  scale_y_continuous(limits = c(0,5)) +
+  labs(x = '', y = "Quality Scale", title="Mental Health and Sleep Quality Over Time") + 
   theme(panel.background = element_rect(fill = "white")) +
   theme(panel.grid.major.y = element_line(color="grey"))
 
