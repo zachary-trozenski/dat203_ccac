@@ -1,7 +1,7 @@
 
 ## DAT-203: Data Visualization and Business Intelligence 
 
-### Vidualize Yourself - Final Project
+### Visualize Yourself - Final Project
 
 ### Abstract
 
