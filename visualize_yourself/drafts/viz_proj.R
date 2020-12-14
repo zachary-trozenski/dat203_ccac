@@ -101,11 +101,11 @@ ggplot(data = sleep_data, mapping = aes(x = Date)) +
 ggplot(data = sleep_data, mapping = aes(x = Date)) + 
   geom_smooth(aes(y = Anxiety.Stress, colour = "Anxiety.Stress")) +
   geom_smooth(aes(y = Emotional.fatigue, colour = "Emotional.fatigue")) +
-  geom_smooth(aes(y = Sleep.quality.scale, colour = "Sleep")) +
+  geom_smooth(aes(y = Sleep.quality.scale, colour = "Sleep.Quality")) +
   scale_colour_manual("", 
                       values = c("Anxiety.Stress"="#009E73", 
                                  "Emotional.fatigue"="#D55E00",
-                                 "Sleep"="#56B4E9")) +
+                                 "Sleep.Quality"="#56B4E9")) +
   scale_x_date(date_minor_breaks="1 day") + 
   scale_y_continuous(limits = c(0,5)) +
   labs(x = '', y = "Quality Scale", title="Mental Health and Sleep Quality Over Time") + 
